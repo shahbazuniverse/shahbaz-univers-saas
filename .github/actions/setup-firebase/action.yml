@@ -1,0 +1,37 @@
+name: "Update Firebase Config"
+description: "Helper to update Firebase configuration"
+
+inputs:
+  firebase_api_key:
+    description: "Firebase API Key"
+    required: true
+  firebase_auth_domain:
+    description: "Firebase Auth Domain"
+    required: true
+  firebase_project_id:
+    description: "Firebase Project ID"
+    required: true
+  firebase_storage_bucket:
+    description: "Firebase Storage Bucket"
+    required: true
+  firebase_messaging_sender_id:
+    description: "Firebase Messaging Sender ID"
+    required: true
+  firebase_app_id:
+    description: "Firebase App ID"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create env file
+      shell: bash
+      run: |
+        cat > .env.local << EOF
+        NEXT_PUBLIC_FIREBASE_API_KEY=${{ inputs.firebase_api_key }}
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ inputs.firebase_auth_domain }}
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID=${{ inputs.firebase_project_id }}
+        NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ inputs.firebase_storage_bucket }}
+        NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ inputs.firebase_messaging_sender_id }}
+        NEXT_PUBLIC_FIREBASE_APP_ID=${{ inputs.firebase_app_id }}
+        EOF
